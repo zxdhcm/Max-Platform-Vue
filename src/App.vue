@@ -5,6 +5,7 @@
     </div>
   </a-locale-provider>
 </template>
+
 <script>
   import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
   import enquireScreen from '@/utils/device'
@@ -16,6 +17,10 @@
       }
     },
     created() {
+      let loading=document.getElementById('loader-wrapper')
+      if(loading){
+        document.body.removeChild(loading)
+      }
       let that = this
       enquireScreen(deviceType => {
         // tablet
