@@ -73,7 +73,7 @@
           fieldDecoratorId="confirmPassword"
           :fieldDecoratorOptions="{rules: [{validator: this.compareToFirstPassword},{required: true, message: '请再次输入密码!'}]}"
         >
-          <a-input placeholder='确认密码' type='password' onBlur={this.handleConfirmBlur}/>
+          <a-input placeholder='确认密码' type='password' onBlur="{this.handleConfirmBlur}" />
         </a-form-item>
 
         <a-form-item
