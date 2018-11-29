@@ -55,7 +55,7 @@
 
           </div>
         </div>
-        <a-divider/>
+        <a-divider />
 
         <div :style="{ marginBottom: '24px' }">
           <h3 class="setting-drawer-index-title">导航模式</h3>
@@ -88,47 +88,48 @@
           <div :style="{ marginTop: '24px' }">
             <a-list :split="false">
               <a-list-item>
-                <a-select slot="actions" defaultValue="auto" size="small">
-                  <a-select-option value="fixed" v-if="layoutMode !== 'sidemenu'" disabled>固定</a-select-option>
-                  <a-select-option value="auto">流式</a-select-option>
-                </a-select>
+                <a-tooltip slot="actions">
+                  <template slot='title'>
+                    该设定仅 [顶部栏导航] 时有效
+                  </template>
+                  <a-select  size="small" style="width: 80px;" :defaultValue="contentWidth" @change="handleContentWidthChange">
+                    <a-select-option value="Fixed">固定</a-select-option>
+                    <a-select-option value="Fluid" v-if="layoutMode !== 'sidemenu'">流式</a-select-option>
+                  </a-select>
+                </a-tooltip>
                 <a-list-item-meta>
                   <div slot="title">内容区域宽度</div>
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="fixedHeader" @change="handleFixedHeader"/>
+                <a-switch slot="actions" size="small" :defaultChecked="fixedHeader" @change="handleFixedHeader" />
                 <a-list-item-meta>
                   <div slot="title">固定 Header</div>
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="autoHideHeader"
-                          @change="handleFixedHeaderHidden"/>
+                <a-switch slot="actions" size="small" :disabled="!fixedHeader" :defaultChecked="autoHideHeader" @change="handleFixedHeaderHidden" />
                 <a-list-item-meta>
-                  <div slot="title">下滑时隐藏 Header</div>
+                  <div slot="title" :style="{ textDecoration: !fixedHeader ? 'line-through' : 'unset' }">下滑时隐藏 Header</div>
                 </a-list-item-meta>
               </a-list-item>
-              <a-list-item>
-                <a-switch slot="actions" size="small" :disabled="(layoutMode === 'topmenu')"
-                          :defaultChecked="fixSiderbar" @change="handleFixSiderbar"/>
+              <a-list-item >
+                <a-switch slot="actions" size="small" :disabled="(layoutMode === 'topmenu')" :defaultChecked="fixSiderbar" @change="handleFixSiderbar" />
                 <a-list-item-meta>
-                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">
-                    固定侧边菜单
-                  </div>
+                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">固定侧边菜单</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
           </div>
         </div>
-        <a-divider/>
+        <a-divider />
 
         <div :style="{ marginBottom: '24px' }">
           <h3 class="setting-drawer-index-title">其他设置</h3>
           <div>
             <a-list :split="false">
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="colorWeak" @change="onColorWeak"/>
+                <a-switch slot="actions" size="small" :defaultChecked="colorWeak" @change="onColorWeak" />
                 <a-list-item-meta>
                   <div slot="title">色弱模式</div>
                 </a-list-item-meta>
@@ -136,7 +137,7 @@
             </a-list>
           </div>
         </div>
-        <a-divider/>
+        <a-divider />
         <div :style="{ marginBottom: '24px' }">
           <a-alert type="warning">
             <span slot="message">
@@ -158,9 +159,8 @@
   import DetailList from '@/components/tools/DetailList'
   import SettingItem from '@/components/setting/SettingItem'
   import config from '@/defaultSettings'
-  import {updateTheme, updateColorWeak, colorList} from '@/components/tools/setting'
-  import {mapState} from 'vuex'
-
+  import { updateTheme, updateColorWeak, colorList } from '@/components/tools/setting'
+  import { mapState } from 'vuex'
   export default {
     components: {
       DetailList,
@@ -181,9 +181,12 @@
         fixedHeader: state => state.app.fixedHeader,
         fixSiderbar: state => state.app.fixSiderbar,
         autoHideHeader: state => state.app.autoHideHeader,
-      })
+        contentWidth: state => state.app.contentWidth,
+      }),
     },
-    mounted() {
+    watch: {
+    },
+    mounted () {
       const vm = this
       /*this.$nextTick(() => {
         vm.visible = false
@@ -209,32 +212,35 @@
       toggle() {
         this.visible = !this.visible
       },
-      onColorWeak(checked) {
+      onColorWeak (checked) {
         this.$store.dispatch('ToggleWeak', checked)
         updateColorWeak(checked)
       },
-      handleMenuTheme(theme) {
+      handleMenuTheme (theme) {
         this.$store.dispatch('ToggleTheme', theme)
       },
-      handleLayout(mode) {
+      handleLayout (mode) {
         this.$store.dispatch('ToggleLayoutMode', mode)
         // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
         //
         this.handleFixSiderbar(false);
       },
-      changeColor(color) {
+      handleContentWidthChange (type) {
+        this.$store.dispatch('ToggleContentWidth', type)
+      },
+      changeColor (color) {
         if (this.primaryColor !== color) {
           this.$store.dispatch('ToggleColor', color)
           updateTheme(color)
         }
       },
-      handleFixedHeader(fixed) {
+      handleFixedHeader (fixed) {
         this.$store.dispatch('ToggleFixedHeader', fixed)
       },
-      handleFixedHeaderHidden(autoHidden) {
+      handleFixedHeaderHidden (autoHidden) {
         this.$store.dispatch('ToggleFixedHeaderHidden', autoHidden)
       },
-      handleFixSiderbar(fixed) {
+      handleFixSiderbar (fixed) {
         if (this.layoutMode === 'topmenu') {
           this.$store.dispatch('ToggleFixSiderbar', false)
           return;
@@ -249,17 +255,14 @@
   .setting-drawer-index-content {
     .setting-drawer-index-blockChecbox {
       display: flex;
-
       .setting-drawer-index-item {
         margin-right: 16px;
         position: relative;
         border-radius: 4px;
         cursor: pointer;
-
         img {
           width: 48px;
         }
-
         .setting-drawer-index-selectIcon {
           position: absolute;
           top: 0;
@@ -274,7 +277,6 @@
         }
       }
     }
-
     .setting-drawer-theme-color-colorBlock {
       width: 20px;
       height: 20px;
@@ -287,13 +289,11 @@
       text-align: center;
       color: #fff;
       font-weight: 700;
-
       i {
         font-size: 14px;
       }
     }
   }
-
   .setting-drawer-index-handle {
     position: absolute;
     top: 240px;
@@ -310,7 +310,6 @@
     text-align: center;
     font-size: 16px;
     border-radius: 4px 0 0 4px;
-
     i {
       color: rgb(255, 255, 255);
       font-size: 20px;

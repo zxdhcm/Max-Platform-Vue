@@ -11,7 +11,7 @@
 
       <a-form-item
         fieldDecoratorId="emailAddress"
-        :fieldDecoratorOptions="{rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}]}"
+        :fieldDecoratorOptions="{rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}], validateTrigger: ['change', 'blur']}"
       >
         <a-input size="large" placeholder="邮箱"/>
       </a-form-item>
@@ -29,7 +29,7 @@
         <a-form-item
           fieldDecoratorId="password"
           :fieldDecoratorOptions="{rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }
-        ]}">
+        ], validateTrigger: ['change', 'blur']}">
           <a-input size="large" type="password" @click="handlePasswordInputClick" autocomplete="false"
                    placeholder="至少6位密码，区分大小写"></a-input>
         </a-form-item>
@@ -37,7 +37,7 @@
 
       <a-form-item
         fieldDecoratorId="password2"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }]}">
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}">
 
         <a-input size="large" type="password" autocomplete="false" placeholder="确认密码"></a-input>
       </a-form-item>
@@ -45,15 +45,7 @@
       <a-form-item
         fieldDecoratorId="phoneNumber"
         :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }">
-        <!--
-        <a-input-group size="large" compact>
-          <a-select style="width: 20%" size="large" defaultValue="+86">
-            <a-select-option value="+86">+86</a-select-option>
-            <a-select-option value="+87">+87</a-select-option>
-          </a-select>
-          <a-input style="width: 80%" size="large" placeholder="11 位手机号"></a-input>
-        </a-input-group>
-        -->
+
         <a-input size="large" placeholder="11 位手机号">
           <a-select slot="addonBefore" size="large" defaultValue="+86">
             <a-select-option value="+86">+86</a-select-option>
@@ -188,6 +180,9 @@
 
       handlePasswordCheck(rule, value, callback) {
         let password = this.form.getFieldValue('password')
+        if (value === undefined) {
+          callback(new Error('请输入密码'))
+        }
         if (value && password && value.trim() !== password.trim()) {
           callback(new Error('两次密码不一致'))
         }
@@ -290,6 +285,12 @@
 
     &.success {
       color: #52c41a;
+    }
+  }
+
+  .user-layout-register {
+    .ant-input-group-addon:first-child {
+      background-color: #fff;
     }
   }
 </style>

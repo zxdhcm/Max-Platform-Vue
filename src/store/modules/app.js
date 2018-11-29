@@ -7,7 +7,8 @@ import {
   DEFAULT_COLOR_WEAK,
   DEFAULT_FIXED_HEADER,
   DEFAULT_FIXED_SIDEMENU,
-  DEFAULT_FIXED_HEADER_HIDDEN
+  DEFAULT_FIXED_HEADER_HIDDEN,
+  DEFAULT_CONTENT_WIDTH_TYPE
 } from "@/store/mutation-types"
 
 const app = {
@@ -19,6 +20,7 @@ const app = {
     device: 'desktop',
     theme: '',
     layout: '',
+    contentWidth: '',
     fixedHeader: false,
     fixSiderbar: false,
     autoHideHeader: false,
@@ -59,7 +61,10 @@ const app = {
       Vue.ls.set(DEFAULT_FIXED_HEADER_HIDDEN, show)
       state.autoHideHeader = show
     },
-
+    TOGGLE_CONTENT_WIDTH: (state, type) => {
+      Vue.ls.set(DEFAULT_CONTENT_WIDTH_TYPE, type)
+      state.contentWidth = type
+    },
     TOGGLE_COLOR: (state, color) => {
       Vue.ls.set(DEFAULT_COLOR, color)
       state.color = color
@@ -70,34 +75,40 @@ const app = {
     }
   },
   actions: {
-    setSidebar: ({commit}, type) => {
+    setSidebar: ({ commit }, type) => {
       commit('SET_SIDEBAR_TYPE', type)
     },
-    CloseSidebar({commit}, {withoutAnimation}) {
+    CloseSidebar({ commit }, { withoutAnimation }) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
     },
-    ToggleDevice({commit}, device) {
+    ToggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
     },
-    ToggleTheme({commit}, theme) {
+    ToggleTheme({ commit }, theme) {
       commit('TOGGLE_THEME', theme)
     },
-    ToggleLayoutMode({commit}, mode) {
+    ToggleLayoutMode({ commit }, mode) {
       commit('TOGGLE_LAYOUT_MODE', mode)
     },
-    ToggleFixedHeader({commit}, fixedHeader) {
+    ToggleFixedHeader({ commit }, fixedHeader) {
+      if (!fixedHeader) {
+        commit('TOGGLE_FIXED_HEADER_HIDDEN', false)
+      }
       commit('TOGGLE_FIXED_HEADER', fixedHeader)
     },
-    ToggleFixSiderbar({commit}, fixSiderbar) {
-      commit('TOGGLE_FIXED_SIDERBAR', fixSiderbar)
+    ToggleFixSiderbar({ commit }, fixSiderbar) {
+      commit( 'TOGGLE_FIXED_SIDERBAR', fixSiderbar)
     },
-    ToggleFixedHeaderHidden({commit}, show) {
+    ToggleFixedHeaderHidden({ commit }, show) {
       commit('TOGGLE_FIXED_HEADER_HIDDEN', show)
     },
-    ToggleColor({commit}, color) {
+    ToggleContentWidth({ commit }, type) {
+      commit('TOGGLE_CONTENT_WIDTH', type)
+    },
+    ToggleColor({ commit }, color) {
       commit('TOGGLE_COLOR', color)
     },
-    ToggleWeak({commit}, weakFlag) {
+    ToggleWeak({ commit }, weakFlag) {
       commit('TOGGLE_WEAK', weakFlag)
     }
   }

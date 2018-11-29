@@ -22,9 +22,11 @@ import {
   SIDEBAR_TYPE,
   DEFAULT_FIXED_HEADER,
   DEFAULT_FIXED_HEADER_HIDDEN,
-  DEFAULT_FIXED_SIDEMENU
+  DEFAULT_FIXED_SIDEMENU,
+  DEFAULT_CONTENT_WIDTH_TYPE
 } from "@/store/mutation-types"
 import config from '@/defaultSettings'
+import VueJsonp from 'vue-jsonp'
 
 Vue.config.productionTip = false
 
@@ -32,6 +34,7 @@ Vue.use(Storage, config.storageOptions)
 Vue.use(Antd)
 Vue.use(VueAxios, router)
 Vue.use(Viser)
+Vue.use(VueJsonp)
 
 new Vue({
   router,
@@ -42,6 +45,7 @@ new Vue({
     store.commit('TOGGLE_LAYOUT_MODE', Vue.ls.get(DEFAULT_LAYOUT_MODE, config.layout))
     store.commit('TOGGLE_FIXED_HEADER', Vue.ls.get(DEFAULT_FIXED_HEADER, config.fixedHeader))
     store.commit('TOGGLE_FIXED_SIDERBAR', Vue.ls.get(DEFAULT_FIXED_SIDEMENU, config.fixSiderbar))
+    store.commit('TOGGLE_CONTENT_WIDTH', Vue.ls.get(DEFAULT_CONTENT_WIDTH_TYPE, config.contentWidth))
     store.commit('TOGGLE_FIXED_HEADER_HIDDEN', Vue.ls.get(DEFAULT_FIXED_HEADER_HIDDEN, config.autoHideHeader))
     store.commit('TOGGLE_WEAK', Vue.ls.get(DEFAULT_COLOR_WEAK, config.colorWeak))
     store.commit('TOGGLE_COLOR', Vue.ls.get(DEFAULT_COLOR, config.primaryColor))
