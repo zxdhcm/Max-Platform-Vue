@@ -48,7 +48,17 @@ module.exports = {
     }
   },
   devServer: {
-    proxy: process.env.NODE_ENV === 'production' ? 'http://193.112.111.13:8081' : 'http://localhost:21021'
-
+    proxy: {
+      '/api': {
+        target: process.env.NODE_ENV === 'production' ? 'http://193.112.111.13:8081' : 'http://localhost:21021',
+        ws: false,
+        changeOrigin: true
+      },
+      '/AbpUserConfiguration': {
+        target: process.env.NODE_ENV === 'production' ? 'http://193.112.111.13:8081' : 'http://localhost:21021',
+        ws: false,
+        changeOrigin: true
+      }
+    }
   }
 }

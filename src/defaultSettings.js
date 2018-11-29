@@ -28,5 +28,5 @@ export default {
     name: 'ls', // name variable Vue.[ls] or this.[$ls],
     storage: 'local', // storage name session, local, memory
   },
-  websiteUrl: process.env.NODE_ENV === 'production' ? 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro/api' : 'http://localhost:8080'
+  websiteUrl: process.env.NODE_ENV === 'production' ? 'http://193.112.111.13:8081' : 'http://localhost:8080'
 }

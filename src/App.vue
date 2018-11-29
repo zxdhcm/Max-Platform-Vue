@@ -21,7 +21,6 @@
       if(loading){
         document.body.removeChild(loading)
       }
-      console.log(process.env.NODE_ENV)
       let that = this
       enquireScreen(deviceType => {
         // tablet
