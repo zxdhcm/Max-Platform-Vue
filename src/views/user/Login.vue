@@ -9,7 +9,7 @@
 
           <a-form-item
             fieldDecoratorId="username"
-            :fieldDecoratorOptions="{initialValue:'admin',rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: this.handleUsernameOrEmail }], validateTrigger: 'change'}"
+            :fieldDecoratorOptions="{initialValue:'superadmin',rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: this.handleUsernameOrEmail }], validateTrigger: 'change'}"
           >
             <a-input size="large" type="text" placeholder="帐户名或邮箱地址 / admin">
               <a-icon slot="prefix" type='user' :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -18,7 +18,7 @@
 
           <a-form-item
             fieldDecoratorId="password"
-            :fieldDecoratorOptions="{initialValue:'123qwe',rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}">
+            :fieldDecoratorOptions="{initialValue:'123Aa@',rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}">
             <a-input size="large" type="password" placeholder="密码 / admin">
               <a-icon slot="prefix" type='lock' :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>

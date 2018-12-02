@@ -1,10 +1,10 @@
 <template>
   <div class="footer">
     <div class="links">
-      <a href="https://pro.ant.design/" target="_blank">Pro 首页</a>
-      <a href="https://github.com/ant-design/ant-design-pro" target="_blank">
+      <a href="https://github.com/zxdhcm/Max-Platform-Vue" target="_blank">
         <a-icon type="github"/>
       </a>
+      <a href="https://pro.ant.design/" target="_blank">Ant Design Vue Pro</a>
       <a href="https://ant.design/">Ant Design</a>
       <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/">Vue Antd</a>
     </div>

@@ -1,8 +1,6 @@
 <template>
   <!-- , width: fixedHeader ? `calc(100% - ${sidebarOpened ? 256 : 80}px)` : '100%'  -->
-  <a-layout-header v-if="!headerBarFixed"
-                   :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed', ]"
-                   :style="{ padding: '0' }">
+  <a-layout-header v-if="!headerBarFixed" :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed', ]" :style="{ padding: '0' }">
     <div v-if="mode === 'sidemenu'" class="header">
       <a-icon
         v-if="device==='mobile'"
@@ -20,7 +18,7 @@
     <div v-else :class="['top-nav-header-index', theme]">
       <div class="header-index-wide">
         <div class="header-index-left">
-          <logo class="top-nav-header" :show-title="device !== 'mobile'"/>
+          <logo class="top-nav-header" :show-title="device !== 'mobile'" />
           <s-menu
             v-if="device !== 'mobile'"
             mode="horizontal"
@@ -44,20 +42,24 @@
   import UserMenu from '../tools/UserMenu'
   import SMenu from '../menu/'
   import Logo from '../tools/Logo'
-  import {mapState} from 'vuex'
-
+  import { mixin } from '@/utils/mixin.js'
   export default {
-    name: "LayoutHeader",
+    name: "GlobalHeader",
     components: {
       UserMenu,
       SMenu,
       Logo
     },
+    mixins: [mixin],
     props: {
       mode: {
         type: String,
         // sidemenu, topmenu
         default: 'sidemenu'
+      },
+      menus: {
+        type: Array,
+        required: true
       },
       theme: {
         type: String,
@@ -77,26 +79,14 @@
     },
     data() {
       return {
-        menus: [],
         headerBarFixed: false,
       }
     },
-    mounted() {
+    mounted () {
       window.addEventListener('scroll', this.handleScroll)
     },
-    created() {
-      this.menus = this.mainMenu.find((item) => item.path === '/').children
-    },
-    computed: {
-      ...mapState({
-        mainMenu: state => state.permission.addRouters,
-        sidebarOpened: state => state.app.sidebar.opened,
-        fixedHeader: state => state.app.fixedHeader,
-        autoHideHeader: state => state.app.autoHideHeader,
-      }),
-    },
     methods: {
-      handleScroll() {
+      handleScroll () {
         if (this.autoHideHeader) {
           let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
           if (scrollTop > 100) {

@@ -320,11 +320,13 @@
           try {
             let res = await changePhoneNumber(data)
             if (res.success) {
-              this.$message.success('修改成功！')
+              this.$message.success('绑定手机成功！')
               let phoneNumberVal = this.handlePhoneNumber(data.phoneNumber)
               this.data.forEach(function (n) {
                 if (n.title == '绑定手机') {
                   n.value = phoneNumberVal
+                  item.description='已绑定手机'
+                  n.actions.title='修改'
                 }
               })
               this.handleCancel()
@@ -335,6 +337,9 @@
         }
       },
       handlePhoneNumber(phoneNumber) {
+        if(!phoneNumber||phoneNumber+''==''){
+          return ''
+        }
         return phoneNumber.substr(0, 3) + '****' + phoneNumber.substr(7, 4)
       }
     },
@@ -353,7 +358,13 @@
       }
 
       if (res.success) {
-        item.value = this.handlePhoneNumber(res.result)
+        let phoneNumber = this.handlePhoneNumber(res.result)
+        if(phoneNumber!=''){
+          item.value=phoneNumber
+        }else {
+          item.description='未绑定手机'
+          item.actions.title='添加'
+        }
       }
       this.data.push(item)
     }

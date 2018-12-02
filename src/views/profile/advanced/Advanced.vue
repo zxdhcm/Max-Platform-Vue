@@ -1,7 +1,7 @@
 <template>
   <page-layout title="单号：234231029431" logo="https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png">
 
-    <detail-list slot="headerContent" size="small" :col="2" style="margin-left: 44px;">
+    <detail-list slot="headerContent" size="small" :col="2" class="detail-layout">
       <detail-list-item term="创建人">曲丽丽</detail-list-item>
       <detail-list-item term="订购产品">XX服务</detail-list-item>
       <detail-list-item term="创建时间">2018-08-07</detail-list-item>
@@ -9,12 +9,12 @@
       <detail-list-item term="生效日期">2018-08-07 ~ 2018-12-11</detail-list-item>
       <detail-list-item term="备注">请于两个工作日内确认</detail-list-item>
     </detail-list>
-    <a-row slot="extra">
-      <a-col :xs="24" :sm="12">
+    <a-row slot="extra" class="status-list">
+      <a-col :xs="12" :sm="12">
         <div class="text">状态</div>
         <div class="heading">待审批</div>
       </a-col>
-      <a-col :xs="24" :sm="12">
+      <a-col :xs="12" :sm="12">
         <div class="text">订单金额</div>
         <div class="heading">¥ 568.08</div>
       </a-col>
@@ -24,15 +24,13 @@
       <a-button-group style="margin-right: 4px;">
         <a-button>操作</a-button>
         <a-button>操作</a-button>
-        <a-button>
-          <a-icon type="ellipsis"/>
-        </a-button>
+        <a-button><a-icon type="ellipsis"/></a-button>
       </a-button-group>
-      <a-button type="primary">主操作</a-button>
+      <a-button type="primary" >主操作</a-button>
     </template>
 
     <a-card :bordered="false" title="流程进度">
-      <a-steps :direction="device==='mobile' && 'vertical' || 'horizontal'" :current="1" progressDot>
+      <a-steps :direction="isMobile() && 'vertical' || 'horizontal'" :current="1" progressDot>
         <a-step title="创建项目">
         </a-step>
         <a-step title="部门初审">
@@ -55,10 +53,10 @@
       <detail-list title="信息组">
         <detail-list-item term="某某数据">725</detail-list-item>
         <detail-list-item term="该数据更新时间">2018-08-08</detail-list-item>
-        <detail-list-item>&nbsp;</detail-list-item>
+        <detail-list-item >&nbsp;</detail-list-item>
         <detail-list-item term="某某数据">725</detail-list-item>
         <detail-list-item term="该数据更新时间">2018-08-08</detail-list-item>
-        <detail-list-item>&nbsp;</detail-list-item>
+        <detail-list-item >&nbsp;</detail-list-item>
       </detail-list>
       <a-card type="inner" title="多层信息组">
         <detail-list title="组名称" size="small">
@@ -68,12 +66,11 @@
           <detail-list-item term="过期时间">2018-08-08</detail-list-item>
           <detail-list-item term="描述">这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...</detail-list-item>
         </detail-list>
-        <a-divider style="margin: 16px 0"/>
+        <a-divider style="margin: 16px 0" />
         <detail-list title="组名称" size="small" :col="1">
-          <detail-list-item term="学名"> Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..
-          </detail-list-item>
+          <detail-list-item term="学名">	Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..</detail-list-item>
         </detail-list>
-        <a-divider style="margin: 16px 0"/>
+        <a-divider style="margin: 16px 0" />
         <detail-list title="组名称" size="small" :col="2">
           <detail-list-item term="负责人">付小小</detail-list-item>
           <detail-list-item term="角色码">1234567</detail-list-item>
@@ -83,10 +80,7 @@
     </a-card>
 
     <a-card style="margin-top: 24px" :bordered="false" title="用户近半年来电记录">
-      <div class="no-data">
-        <a-icon type="frown-o"/>
-        暂无数据
-      </div>
+      <div class="no-data"><a-icon type="frown-o"/>暂无数据</div>
     </a-card>
 
     <!-- 操作 -->
@@ -139,12 +133,10 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import { mixinDevice } from '@/utils/mixin.js'
   import PageLayout from '@/components/page/PageLayout'
   import DetailList from '@/components/tools/DetailList'
-
   const DetailListItem = DetailList.Item
-
   export default {
     name: "Advanced",
     components: {
@@ -152,7 +144,8 @@
       DetailList,
       DetailListItem
     },
-    data() {
+    mixins: [mixinDevice],
+    data () {
       return {
         tabList: [
           {
@@ -169,7 +162,6 @@
           }
         ],
         activeTabKey: '1',
-
         operationColumns: [
           {
             title: '操作类型',
@@ -185,7 +177,7 @@
             title: '执行结果',
             dataIndex: 'status',
             key: 'status',
-            scopedSlots: {customRender: 'status'},
+            scopedSlots: { customRender: 'status' },
           },
           {
             title: '操作时间',
@@ -301,36 +293,41 @@
         }
         return statusTypeMap[type]
       }
-    },
-    computed: {
-      ...mapState({
-        device: state => state.app.device,
-      })
-    },
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+  .detail-layout {
+    margin-left: 44px;
+  }
   .text {
     color: rgba(0, 0, 0, .45);
   }
-
   .heading {
     color: rgba(0, 0, 0, .85);
     font-size: 20px;
   }
-
   .no-data {
     color: rgba(0, 0, 0, .25);
     text-align: center;
     line-height: 64px;
     font-size: 16px;
-
     i {
       font-size: 24px;
       margin-right: 16px;
       position: relative;
       top: 3px;
+    }
+  }
+  .mobile {
+    .detail-layout {
+      margin-left: unset;
+    }
+    .text {
+    }
+    .status-list {
+      text-align: left;
     }
   }
 </style>

@@ -8,7 +8,7 @@ import {ACCESS_TOKEN} from "@/store/mutation-types"
 // 创建 axios 实例
 const service = axios.create({
   baseURL: '', // api base_url
-  timeout: 5000 // 请求超时时间
+  timeout: 20000 // 请求超时时间
 })
 
 const err = (error) => {

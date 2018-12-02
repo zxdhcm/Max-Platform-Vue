@@ -588,8 +588,13 @@
             let res1 = await getBookmarkWebSiteInfo({url: data.url})
             let webSiteInfo = res1.result
             data.faviconUrl = webSiteInfo.faviconUrl + "" == "" ? this.bookmark.defaultFaviconUrl : webSiteInfo.faviconUrl
-            if (data.title + "" == "") {
-              data.title = webSiteInfo.title
+            if(data.title + '' == ''){
+              if(webSiteInfo.title+''==''){
+                this.$message.error('自动获取书签名称失败,请输入名称或重试！');
+                return
+              }else {
+                data.title = webSiteInfo.title
+              }
             }
             if (data.remarks + "" == "") {
               data.remarks = webSiteInfo.description

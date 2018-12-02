@@ -4,7 +4,7 @@ import Storage from 'vue-ls'
 import router from './router'
 import store from './store/'
 
-import {VueAxios} from "@/utils/request"
+import { VueAxios } from "@/utils/request"
 
 import Antd from 'ant-design-vue'
 import Viser from 'viser-vue'
@@ -39,7 +39,7 @@ Vue.use(VueJsonp)
 new Vue({
   router,
   store,
-  mounted() {
+  mounted () {
     store.commit('SET_SIDEBAR_TYPE', Vue.ls.get(SIDEBAR_TYPE, true))
     store.commit('TOGGLE_THEME', Vue.ls.get(DEFAULT_THEME, config.navTheme))
     store.commit('TOGGLE_LAYOUT_MODE', Vue.ls.get(DEFAULT_LAYOUT_MODE, config.layout))

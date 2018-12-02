@@ -92,7 +92,7 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import { mixinDevice } from '@/utils/mixin.js'
   import {getSmsCaptcha, register} from '@/api/login'
 
   const levelNames = {
@@ -116,6 +116,7 @@
   export default {
     name: "Register",
     components: {},
+    mixins: [mixinDevice],
     data() {
       return {
         form: null,
@@ -132,9 +133,6 @@
       }
     },
     computed: {
-      ...mapState({
-        isMobile: state => state.app.device === 'mobile',
-      }),
       passwordLevelClass() {
         return levelClass[this.state.passwordLevel]
       },
@@ -194,7 +192,7 @@
       },
 
       handlePasswordInputClick() {
-        if (!this.isMobile) {
+        if (!this.isMobile()) {
           this.state.passwordLevelChecked = true
           return;
         }

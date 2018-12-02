@@ -1,5 +1,5 @@
 <template>
-  <div id="userLayout" class="user-layout-wrapper">
+  <div id="userLayout" :class="['user-layout-wrapper', device]">
     <div class="container">
       <div class="top">
         <div class="header">
@@ -31,10 +31,12 @@
 
 <script>
   import RouteView from "@/components/layouts/RouteView"
+  import { mixinDevice } from '@/utils/mixin.js'
 
   export default {
     name: "UserLayout",
     components: {RouteView},
+    mixins: [mixinDevice],
     data() {
       return {year: new Date().getFullYear()}
     },
@@ -50,6 +52,15 @@
 <style lang="scss" scoped>
   #userLayout.user-layout-wrapper {
     height: 100%;
+
+    &.mobile {
+      .container {
+        .main {
+          max-width: 368px;
+          width: 98%;
+        }
+      }
+    }
 
     .container {
       width: 100%;
@@ -106,6 +117,7 @@
       }
 
       .main {
+        min-width: 260px;
         width: 368px;
         margin: 0 auto;
       }
