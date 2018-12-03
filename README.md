@@ -10,7 +10,16 @@
 [查看效果请戳这里](http://193.112.111.13/)
 
 ## 简介
-&emsp;&emsp;Max Platform Vue是基于[ant-design-pro-vue](https://github.com/sendya/ant-design-pro-vue/) 实现的一套后台集成解决方案，是后台项目[Max Platform](https://github.com/zxdhcm/Max-Platform)的管理系统,并且更多功能在不停开发中。
+&emsp;&emsp;Max Platform Vue是基于[ant-design-pro-vue](https://github.com/sendya/ant-design-pro-vue/) 实现的一套后台集成解决方案，是后台项目管理系统[Max Platform](https://github.com/zxdhcm/Max-Platform)的前端页面
+
+## 说明 
+>  开发环境 WebStorm 2018.3  nodejs 10.14.0
+
+>  部署环境 腾讯云 CentOS + Docker
+
+>  自动化构建 Jenkins + Github
+
+>相关项目地址  [Jenkins](http://193.112.111.13:8081/)
 
 ## 功能
 
