@@ -17,7 +17,7 @@
 
 >  部署环境 腾讯云 CentOS + Docker
 
->  自动化构建 Jenkins + Github
+>  自动化构建部署 Jenkins + Github
 
 >相关项目地址  [Jenkins](http://193.112.111.13:8081/)
 
