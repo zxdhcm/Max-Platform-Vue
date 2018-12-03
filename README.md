@@ -6,10 +6,11 @@
 
 # Max Platform Vue
 
-[在线访问](http://193.112.111.13/)
+## 效果演示
+[查看效果请戳这里](http://193.112.111.13/)
 
 ## 简介
-&emsp;&emsp;Max Platform Vue是基于[ant-design-pro-vue](https://github.com/sendya/ant-design-pro-vue/) 实现的一套后台集成解决方案，并且更多功能在不停开发中。
+&emsp;&emsp;Max Platform Vue是基于[ant-design-pro-vue](https://github.com/sendya/ant-design-pro-vue/) 实现的一套后台集成解决方案，是后台项目[Max Platform](https://github.com/zxdhcm/Max-Platform)的管理系统,并且更多功能在不停开发中。
 
 ## 功能
 
