@@ -602,7 +602,8 @@
             data.faviconUrl = webSiteInfo.faviconUrl + "" == "" ? this.bookmark.defaultFaviconUrl : webSiteInfo.faviconUrl
             if(data.title + '' == ''){
               if(webSiteInfo.title+''==''){
-                this.$message.error('自动获取书签名称失败,请输入名称或重试！');
+                this.$message.error('自动获取书签名称失败,请输入名称或重试！')
+                this.bookmark.loading = false
                 return
               }else {
                 data.title = webSiteInfo.title
