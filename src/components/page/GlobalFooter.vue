@@ -5,8 +5,8 @@
         <a-icon type="github"/>
       </a>
       <a href="https://pro.ant.design/" target="_blank">Ant Design Vue Pro</a>
-      <a href="https://ant.design/">Ant Design</a>
-      <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/">Vue Antd</a>
+      <a href="https://ant.design/" target="_blank">Ant Design</a>
+      <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Vue Antd</a>
     </div>
     <div class="copyright">
       Copyright

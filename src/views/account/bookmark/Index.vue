@@ -113,10 +113,22 @@
               <template v-else>
                 <a-card :hoverable="true">
                   <a-card-meta @click="openBookmark(item)">
-                    <div style="margin-bottom: 3px" slot="title">{{ item.title }}</div>
+                    <div style="margin-bottom: 3px" slot="title">
+                      <a-tooltip placement="topLeft" >
+                        <template slot="title">
+                          <span>{{ item.title }}</span>
+                        </template>
+                        {{ item.title }}
+                      </a-tooltip>
+                    </div>
                     <a-avatar class="card-avatar" size="large" slot="avatar" :src="item.faviconUrl"/>
                     <div slot="description" class="card-description">
-                      {{(item.remarks+'').length>0?item.remarks.trim():item.url.trim()}}
+                      <a-tooltip >
+                        <template slot="title">
+                          <span> {{(item.remarks+'').length>0?item.remarks.trim():item.url.trim()}}</span>
+                        </template>
+                        {{(item.remarks+'').length>0?item.remarks.trim():item.url.trim()}}
+                      </a-tooltip>
                     </div>
                   </a-card-meta>
                   <template class="ant-card-actions" slot="actions">
