@@ -1,44 +1,47 @@
 <template>
   <div class="main">
-    <a-form class="user-layout-login" ref="formLogin" :autoFormCreate="(form)=>{this.form = form}" id="formLogin">
+    <a-form class="user-layout-login" ref="formLogin" :form="form" id="formLogin">
       <a-tabs
         :activeKey="customActiveKey"
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick">
         <a-tab-pane key="tab1" tab="账号密码登陆">
 
-          <a-form-item
-            fieldDecoratorId="username"
-            :fieldDecoratorOptions="{initialValue:'superadmin',rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: this.handleUsernameOrEmail }], validateTrigger: 'change'}"
-          >
-            <a-input size="large" type="text" placeholder="帐户名或邮箱地址 / admin">
+          <a-form-item>
+            <a-input size="large" type="text" placeholder="帐户名或邮箱地址"  v-decorator="[
+              'username',
+              {initialValue:'superadmin',rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: this.handleUsernameOrEmail }], validateTrigger: 'change'}
+            ]">
               <a-icon slot="prefix" type='user' :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
 
-          <a-form-item
-            fieldDecoratorId="password"
-            :fieldDecoratorOptions="{initialValue:'123Aa@',rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}">
-            <a-input size="large" type="password" placeholder="密码 / admin">
+          <a-form-item>
+            <a-input size="large" type="password" placeholder="密码" v-decorator="[
+              'password',
+              {initialValue:'123Aa@',rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
+            ]">
               <a-icon slot="prefix" type='lock' :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
         </a-tab-pane>
         <a-tab-pane key="tab2" tab="手机号登陆">
-          <a-form-item
-            fieldDecoratorId="mobile"
-            :fieldDecoratorOptions="{rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}">
-            <a-input size="large" type="text" placeholder="手机号">
+          <a-form-item>
+            <a-input size="large" type="text" placeholder="手机号" v-decorator="[
+              'mobile',
+              {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}
+            ]">
               <a-icon slot="prefix" type='mobile' :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
 
           <a-row :gutter="16">
             <a-col class="gutter-row" :span="16">
-              <a-form-item
-                fieldDecoratorId="captcha"
-                :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}">
-                <a-input size="large" type="text" placeholder="验证码">
+              <a-form-item>
+                <a-input size="large" type="text" placeholder="验证码" v-decorator="[
+              'captcha',
+              {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}
+            ]">
                   <a-icon slot="prefix" type='mail' :style="{ color: 'rgba(0,0,0,.25)' }"/>
                 </a-input>
               </a-form-item>
@@ -116,7 +119,7 @@
         loginType: 0,
         requiredTwoStepCaptcha: false,
         stepCaptchaVisible: false,
-        form: null,
+        form: this.$form.createForm(this),
         state: {
           time: 60,
           smsSendBtn: false,

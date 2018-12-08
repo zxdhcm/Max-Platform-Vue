@@ -9,40 +9,41 @@
       @ok="handleOk"
       :confirmLoading="loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.form = form}">
+      <a-form :form="form">
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='用户名:'
           hasFeedback
-          fieldDecoratorId="userName"
-          :fieldDecoratorOptions="{initialValue:userData.userName, rules: [{ required: true, message: '请输入用户名!'}]}"
         >
-          <a-input placeholder='用户名'/>
+          <a-input placeholder='用户名'  v-decorator="[
+              'name',
+             {initialValue:userData.userName, rules: [{ required: true, message: '请输入用户名!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='名字:'
-          hasFeedback
-          fieldDecoratorId="name"
-          :fieldDecoratorOptions="{initialValue:userData.name, rules: [{ required: true, message: '请输入名字!'}]}"
-        >
-          <a-input placeholder='起一个名字'/>
+          hasFeedback>
+          <a-input placeholder='名字' v-decorator="[
+              'name',
+             {initialValue:userData.name, rules: [{ required: true, message: '请输入名字!'}]}
+            ]"/>
         </a-form-item>
-
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='姓氏:'
           hasFeedback
-          fieldDecoratorId="surname"
-          :fieldDecoratorOptions="{initialValue:userData.surname}"
         >
-          <a-input placeholder='姓氏'/>
+          <a-input placeholder='姓氏' v-decorator="[
+              'surname',
+             {initialValue:userData.surname}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -50,30 +51,33 @@
           :wrapperCol="wrapperCol"
           label='邮箱:'
           hasFeedback
-          fieldDecoratorId="emailAddress"
-          :fieldDecoratorOptions="{initialValue:userData.emailAddress, rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}]}"
         >
-          <a-input placeholder='邮箱'/>
+          <a-input placeholder='邮箱' v-decorator="[
+              'emailAddress',
+             {initialValue:userData.emailAddress, rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='用户角色:'
-          fieldDecoratorId="roleNames"
-          :fieldDecoratorOptions="{initialValue:userData.roleNames}"
         >
-          <a-checkbox-group :options="roles"/>
+          <a-checkbox-group :options="roles" v-decorator="[
+              'roleNames',
+             {initialValue:userData.roleNames}
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='启用:'
-          fieldDecoratorId="isActive"
-          :fieldDecoratorOptions="{initialValue:userData.isActive}"
         >
-          <a-checkbox :defaultChecked="userData.isActive"></a-checkbox>
+          <a-checkbox :defaultChecked="userData.isActive" v-decorator="[
+              'isActive',
+             {initialValue:userData.isActive}
+            ]"></a-checkbox>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -86,7 +90,7 @@
     props: ['roles', 'visible', 'userData'],
     data() {
       return {
-        form: null,
+        form: this.$form.createForm(this),
         labelCol: {
           xs: {span: 24},
           sm: {span: 5},

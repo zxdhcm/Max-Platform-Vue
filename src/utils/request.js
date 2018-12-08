@@ -17,6 +17,7 @@ const err = (error) => {
     let description = ''
     let handleClose = () => {
     }
+    const token = Vue.ls.get(ACCESS_TOKEN)
     let falg = !!error.response && !!error.response.data.error
     if (error.response.status === 403) {
       message = '拒绝访问'
@@ -24,10 +25,12 @@ const err = (error) => {
     } else if (error.response.status === 401) {
       message = '未授权'
       description = falg && !!error.response.data.error.message ? error.response.data.error.message : '授权验证失败'
-      handleClose = () => {
-        store.dispatch('Logout').then(() => {
-          location.reload()
-        })
+      if (token) {
+        handleClose = () => {
+          store.dispatch('Logout').then(() => {
+            window.location.reload()
+          })
+        }
       }
     } else if (falg) {
       if (error.response.data.error.message) {

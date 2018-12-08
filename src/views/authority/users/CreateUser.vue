@@ -9,17 +9,18 @@
       @ok="handleOk"
       :confirmLoading="loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.form = form}">
+      <a-form :form="form">
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='用户名:'
           hasFeedback
-          fieldDecoratorId="userName"
-          :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入用户名!'}]}"
         >
-          <a-input placeholder='用户名'/>
+          <a-input placeholder='用户名' v-decorator="[
+              'userName',
+             {rules: [{ required: true, message: '请输入用户名!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -27,10 +28,11 @@
           :wrapperCol="wrapperCol"
           label='名字:'
           hasFeedback
-          fieldDecoratorId="name"
-          :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入名字!'}]}"
         >
-          <a-input placeholder='起一个名字'/>
+          <a-input placeholder='起一个名字' v-decorator="[
+              'name',
+             {rules: [{ required: true, message: '请输入名字!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -40,7 +42,7 @@
           hasFeedback
           fieldDecoratorId="surname"
         >
-          <a-input placeholder='姓氏'/>
+          <a-input placeholder='姓氏' v-decorator="['surname']"/>
         </a-form-item>
 
         <a-form-item
@@ -48,10 +50,11 @@
           :wrapperCol="wrapperCol"
           label='邮箱:'
           hasFeedback
-          fieldDecoratorId="emailAddress"
-          :fieldDecoratorOptions="{rules: [{type: 'email', message: '请输入正确的邮箱!'}, {required: true, message: '请输入邮箱!'}]}"
         >
-          <a-input placeholder='邮箱'/>
+          <a-input placeholder='邮箱' v-decorator="[
+              'emailAddress',
+             {rules: [{type: 'email', message: '请输入正确的邮箱!'}, {required: true, message: '请输入邮箱!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -59,10 +62,11 @@
           :wrapperCol="wrapperCol"
           label='密码:'
           hasFeedback
-          fieldDecoratorId="password"
-          :fieldDecoratorOptions="{rules: [{validator: this.validateToNextPassword},{required: true, message: '请输入密码!'}]}"
         >
-          <a-input placeholder='密码' type='password'/>
+          <a-input placeholder='密码' type='password' v-decorator="[
+              'password',
+             {rules: [{validator: this.validateToNextPassword},{required: true, message: '请输入密码!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -70,30 +74,33 @@
           :wrapperCol="wrapperCol"
           label='确认密码:'
           hasFeedback
-          fieldDecoratorId="confirmPassword"
-          :fieldDecoratorOptions="{rules: [{validator: this.compareToFirstPassword},{required: true, message: '请再次输入密码!'}]}"
         >
-          <a-input placeholder='确认密码' type='password' onBlur="{this.handleConfirmBlur}" />
+          <a-input placeholder='确认密码' type='password' onBlur="{this.handleConfirmBlur}" v-decorator="[
+              'confirmPassword',
+             {rules: [{validator: this.compareToFirstPassword},{required: true, message: '请再次输入密码!'}]}
+            ]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='用户角色:'
-          fieldDecoratorId="roleNames"
-          :fieldDecoratorOptions="{initialValue:[]}"
         >
-          <a-checkbox-group :options="roles"/>
+          <a-checkbox-group :options="roles" v-decorator="[
+              'roleNames',
+             {initialValue:[]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='启用:'
-          fieldDecoratorId="isActive"
-          :fieldDecoratorOptions="{initialValue:false,valuePropName:'checked'}"
         >
-          <a-checkbox></a-checkbox>
+          <a-checkbox v-decorator="[
+              'isActive',
+             {initialValue:false,valuePropName:'checked'}
+            ]"></a-checkbox>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -107,7 +114,7 @@
     data() {
       return {
         confirmDirty: false,
-        form: null,
+        form: this.$form.createForm(this),
         labelCol: {
           xs: {span: 24},
           sm: {span: 5},

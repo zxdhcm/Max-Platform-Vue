@@ -27,16 +27,17 @@
       @ok="handleChangePasswordOk"
       :confirmLoading="changePassword.loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.changePassword.form = form}">
+      <a-form :form="changePassword.form">
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='当前密码:'
           hasFeedback
-          fieldDecoratorId="currentPassword"
-          :fieldDecoratorOptions="{initialValue:changePassword.formVal.currentPassword,rules: [{ required: true, message: '请输当前账户密码!'}]}"
         >
-          <a-input placeholder='当前密码' @click="handlePasswordInputClick(1)" type="password" autocomplete="false"/>
+          <a-input placeholder='当前密码' @click="handlePasswordInputClick(1)" type="password" autocomplete="false" v-decorator="[
+              'currentPassword',
+             {initialValue:changePassword.formVal.currentPassword,rules: [{ required: true, message: '请输当前账户密码!'}]}
+            ]"/>
         </a-form-item>
 
         <a-popover placement="top" trigger="click" :visible="state.passwordLevelChecked">
@@ -54,11 +55,12 @@
             :wrapperCol="wrapperCol"
             label='新密码:'
             hasFeedback
-            fieldDecoratorId="newPassword"
-            :fieldDecoratorOptions="{initialValue:changePassword.formVal.newPassword,rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }
-        ]}">
+          >
             <a-input type="password" @click="handlePasswordInputClick(2)" autocomplete="false"
-                     placeholder="至少6位密码，区分大小写"></a-input>
+                     placeholder="至少6位密码，区分大小写" v-decorator="[
+              'newPassword',
+             {initialValue:changePassword.formVal.newPassword,rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }]}
+            ]"></a-input>
           </a-form-item>
         </a-popover>
       </a-form>
@@ -72,25 +74,27 @@
       @ok="handleChangePhoneNumberOk"
       :confirmLoading="changePhoneNumber.loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.changePhoneNumber.form = form}">
+      <a-form :form="changePhoneNumber.form">
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='手机号:'
-          fieldDecoratorId="phoneNumber"
-          :fieldDecoratorOptions="{initialValue:changePhoneNumber.formVal.phoneNumber,rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }"
         >
-          <a-input placeholder='11 位手机号'/>
+          <a-input placeholder='11 位手机号' v-decorator="[
+              'phoneNumber',
+             {initialValue:changePhoneNumber.formVal.phoneNumber,rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='验证码:'
-          fieldDecoratorId="captchaResponse"
-          :fieldDecoratorOptions="{initialValue:changePhoneNumber.formVal.captchaResponse,rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}"
         >
-          <a-input-search placeholder="验证码" @search="getCaptcha">
+          <a-input-search placeholder="验证码" @search="getCaptcha" v-decorator="[
+              'captchaResponse',
+             {initialValue:changePhoneNumber.formVal.captchaResponse,rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}
+            ]">
             <a-button :disabled="state.smsSendBtn" v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"
                       slot="enterButton"></a-button>
           </a-input-search>
@@ -138,7 +142,7 @@
           sm: {span: 16},
         },
         changePassword: {
-          form: null,
+          form: this.$form.createForm(this),
           formVal: {
             currentPassword: '',
             newPassword: ''
@@ -148,7 +152,7 @@
           loading: false
         },
         changePhoneNumber: {
-          form: null,
+          form: this.$form.createForm(this),
           formVal: {
             phoneNumber: '',
             captchaResponse: ''

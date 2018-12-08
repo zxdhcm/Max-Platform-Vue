@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-card class="card" title="仓库管理" :bordered="false">
-      <repository-form ref="repository" :showSubmit="false"/>
+      <repository-form ref="repository" :showSubmit="false" />
     </a-card>
     <a-card class="card" title="任务管理" :bordered="false">
-      <task-form ref="task" :showSubmit="false"/>
+      <task-form ref="task" :showSubmit="false" />
     </a-card>
 
     <!-- table -->
@@ -30,29 +30,27 @@
             <template v-if="record.editable">
               <span v-if="record.isNew">
                 <a @click="saveRow(record.key)">添加</a>
-                <a-divider type="vertical"/>
+                <a-divider type="vertical" />
                 <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
                   <a>删除</a>
                 </a-popconfirm>
               </span>
               <span v-else>
                 <a @click="saveRow(record.key)">保存</a>
-                <a-divider type="vertical"/>
-                <a @click="cancle(record.key)">取消</a>
+                <a-divider type="vertical" />
+                <a @click="cancel(record.key)">取消</a>
               </span>
             </template>
             <span v-else>
               <a @click="toggle(record.key)">编辑</a>
-              <a-divider type="vertical"/>
+              <a-divider type="vertical" />
               <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
                 <a>删除</a>
               </a-popconfirm>
             </span>
           </template>
         </a-table>
-        <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMeber">
-          新增成员
-        </a-button>
+        <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">新增成员</a-button>
       </form>
     </a-card>
 
@@ -75,7 +73,7 @@
       RepositoryForm,
       TaskForm
     },
-    data() {
+    data () {
       return {
         description: '高级表单常见于一次性输入和提交大批量数据的场景。',
         loading: false,
@@ -87,26 +85,26 @@
             dataIndex: 'name',
             key: 'name',
             width: '20%',
-            scopedSlots: {customRender: 'name'}
+            scopedSlots: { customRender: 'name' }
           },
           {
             title: '工号',
             dataIndex: 'workId',
             key: 'workId',
             width: '20%',
-            scopedSlots: {customRender: 'workId'}
+            scopedSlots: { customRender: 'workId' }
           },
           {
             title: '所属部门',
             dataIndex: 'department',
             key: 'department',
             width: '40%',
-            scopedSlots: {customRender: 'department'}
+            scopedSlots: { customRender: 'department' }
           },
           {
             title: '操作',
             key: 'action',
-            scopedSlots: {customRender: 'operation'}
+            scopedSlots: { customRender: 'operation' }
           }
         ],
         data: [
@@ -135,10 +133,10 @@
       }
     },
     methods: {
-      handleSubmit(e) {
+      handleSubmit (e) {
         e.preventDefault()
       },
-      newMeber() {
+      newMember () {
         this.data.push({
           key: '-1',
           name: '',
@@ -148,28 +146,28 @@
           isNew: true
         })
       },
-      remove(key) {
+      remove (key) {
         const newData = this.data.filter(item => item.key !== key)
         this.data = newData
       },
-      saveRow(key) {
+      saveRow (key) {
         let target = this.data.filter(item => item.key === key)[0]
         target.editable = false
         target.isNew = false
       },
-      toggle(key) {
+      toggle (key) {
         let target = this.data.filter(item => item.key === key)[0]
         target.editable = !target.editable
       },
-      getRowByKey(key, newData) {
+      getRowByKey (key, newData) {
         const data = this.data
         return (newData || data).filter(item => item.key === key)[0]
       },
-      cancle(key) {
+      cancel (key) {
         let target = this.data.filter(item => item.key === key)[0]
         target.editable = false
       },
-      handleChange(value, key, column) {
+      handleChange (value, key, column) {
         const newData = [...this.data]
         const target = newData.filter(item => key === item.key)[0]
         if (target) {
@@ -179,7 +177,7 @@
       },
 
       // 最终全页面提交
-      validate() {
+      validate () {
         this.$refs.repository.form.validateFields((err, values) => {
           if (!err) {
             this.$notification['error']({
@@ -202,7 +200,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .card {
+  .card{
     margin-bottom: 24px;
   }
 </style>

@@ -22,7 +22,7 @@
         </div>
         <div slot="action">
           <a-button type="primary" @click="finish">再转一笔</a-button>
-          <a-button style="margin-left: 8px">查看账单</a-button>
+          <a-button style="margin-left: 8px" @click="toOrderList">查看账单</a-button>
         </div>
       </result>
     </a-form>
@@ -37,14 +37,17 @@
     components: {
       Result
     },
-    data() {
+    data () {
       return {
         loading: false
       }
     },
     methods: {
-      finish() {
+      finish () {
         this.$emit('finish')
+      },
+      toOrderList () {
+        this.$router.push('/list/query-list')
       }
     }
   }
@@ -57,9 +60,8 @@
       margin-bottom: 24px;
     }
   }
-
   .money {
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "Helvetica Neue",sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 14px;

@@ -1,19 +1,19 @@
 <template>
   <div class="main user-layout-register">
     <h3><span>注册</span></h3>
-    <a-form ref="formRegister" :autoFormCreate="(form)=>{this.form = form}" id="formRegister">
-      <a-form-item
-        fieldDecoratorId="userName"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入用户名!'}]}"
-      >
-        <a-input size="large" placeholder='用户名'/>
+    <a-form ref="formRegister" :form="form" id="formRegister">
+      <a-form-item>
+        <a-input size="large" placeholder='用户名' v-decorator="[
+              'userName',
+             {rules: [{ required: true, message: '请输入用户名!'}]}
+            ]"/>
       </a-form-item>
 
-      <a-form-item
-        fieldDecoratorId="emailAddress"
-        :fieldDecoratorOptions="{rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}], validateTrigger: ['change', 'blur']}"
-      >
-        <a-input size="large" placeholder="邮箱"/>
+      <a-form-item>
+        <a-input size="large" placeholder="邮箱" v-decorator="[
+              'emailAddress',
+             {rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}], validateTrigger: ['change', 'blur']}
+            ]"/>
       </a-form-item>
 
       <a-popover placement="rightTop" trigger="click" :visible="state.passwordLevelChecked">
@@ -26,27 +26,28 @@
             </div>
           </div>
         </template>
-        <a-form-item
-          fieldDecoratorId="password"
-          :fieldDecoratorOptions="{rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }
-        ], validateTrigger: ['change', 'blur']}">
+        <a-form-item>
           <a-input size="large" type="password" @click="handlePasswordInputClick" autocomplete="false"
-                   placeholder="至少6位密码，区分大小写"></a-input>
+                   placeholder="至少6位密码，区分大小写" v-decorator="[
+              'password',
+            {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }
+        ], validateTrigger: ['change', 'blur']}
+            ]"></a-input>
         </a-form-item>
       </a-popover>
 
-      <a-form-item
-        fieldDecoratorId="password2"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}">
-
-        <a-input size="large" type="password" autocomplete="false" placeholder="确认密码"></a-input>
+      <a-form-item>
+        <a-input size="large" type="password" autocomplete="false" placeholder="确认密码" v-decorator="[
+              'password2',
+             {rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}
+            ]"></a-input>
       </a-form-item>
 
-      <a-form-item
-        fieldDecoratorId="phoneNumber"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }">
-
-        <a-input size="large" placeholder="11 位手机号">
+      <a-form-item>
+        <a-input size="large" placeholder="11 位手机号" v-decorator="[
+              'phoneNumber',
+             {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }
+            ]">
           <a-select slot="addonBefore" size="large" defaultValue="+86">
             <a-select-option value="+86">+86</a-select-option>
             <a-select-option value="+87">+87</a-select-option>
@@ -56,10 +57,11 @@
 
       <a-row :gutter="16">
         <a-col class="gutter-row" :span="16">
-          <a-form-item
-            fieldDecoratorId="captchaResponse"
-            :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}">
-            <a-input size="large" type="text" placeholder="验证码">
+          <a-form-item>
+            <a-input size="large" type="text" placeholder="验证码" v-decorator="[
+              'captchaResponse',
+             {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}
+            ]">
               <a-icon slot="prefix" type='mail' :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
@@ -119,7 +121,7 @@
     mixins: [mixinDevice],
     data() {
       return {
-        form: null,
+        form: this.$form.createForm(this),
 
         state: {
           time: 60,

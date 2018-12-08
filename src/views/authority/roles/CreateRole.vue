@@ -9,17 +9,18 @@
       @ok="handleOk"
       :confirmLoading="loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.form = form}">
+      <a-form :form="form">
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='角色名称:'
           hasFeedback
-          fieldDecoratorId="name"
-          :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入角色名称!'}]}"
         >
-          <a-input placeholder='角色名称'/>
+          <a-input placeholder='角色名称' v-decorator="[
+              'name',
+             {rules: [{ required: true, message: '请输入角色名称!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -27,30 +28,30 @@
           :wrapperCol="wrapperCol"
           label='显示名称:'
           hasFeedback
-          fieldDecoratorId="displayName"
-          :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入显示名称!'}]}"
         >
-          <a-input placeholder='显示名称'/>
+          <a-input placeholder='显示名称' v-decorator="[
+              'displayName',
+             {rules: [{ required: true, message: '请输入显示名称!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='角色描述:'
-          hasFeedback
-          fieldDecoratorId="description"
-        >
-          <a-input placeholder='角色描述'/>
+          hasFeedback>
+          <a-input placeholder='角色描述' v-decorator="['description']"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='角色权限:'
-          fieldDecoratorId="permissions"
-          :fieldDecoratorOptions="{initialValue:[]}"
         >
-          <a-checkbox-group :options="permissions"/>
+          <a-checkbox-group :options="permissions" v-decorator="[
+              'permissions',
+            {initialValue:[]}
+            ]"/>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -63,7 +64,7 @@
     props: ['permissions', 'visible'],
     data() {
       return {
-        form: null,
+        form: this.$form.createForm(this),
         labelCol: {
           xs: {span: 24},
           sm: {span: 5},

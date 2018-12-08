@@ -28,14 +28,14 @@
         :labelCol="{span: 5}"
         :wrapperCol="{span: 19}"
       >
-        <a-input value="Alex"/>
+        <a-input value="Alex" />
       </a-form-item>
       <a-form-item
         label="转账金额"
         :labelCol="{span: 5}"
         :wrapperCol="{span: 19}"
       >
-        <a-input prefix="￥" value="5000"/>
+        <a-input prefix="￥" value="5000" />
       </a-form-item>
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
         <a-button type="primary" @click="nextStep">下一步</a-button>
@@ -48,7 +48,7 @@
   export default {
     name: "Step1",
     methods: {
-      nextStep() {
+      nextStep () {
         this.$emit('nextStep')
       }
     }

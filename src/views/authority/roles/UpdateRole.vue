@@ -9,17 +9,18 @@
       @ok="handleOk"
       :confirmLoading="loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.form = form}">
+      <a-form :form="form">
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='角色名称:'
           hasFeedback
-          fieldDecoratorId="name"
-          :fieldDecoratorOptions="{initialValue:roleData.name, rules: [{ required: true, message: '请输入角色名称!'}]}"
         >
-          <a-input placeholder='角色名称'/>
+          <a-input placeholder='角色名称' v-decorator="[
+              'name',
+             {initialValue:roleData.name, rules: [{ required: true, message: '请输入角色名称!'}]}
+            ]"/>
         </a-form-item>
 
         <a-form-item
@@ -27,10 +28,11 @@
           :wrapperCol="wrapperCol"
           label='显示名称:'
           hasFeedback
-          fieldDecoratorId="displayName"
-          :fieldDecoratorOptions="{initialValue:roleData.displayName, rules: [{ required: true, message: '请输入显示名称!'}]}"
         >
-          <a-input placeholder='显示名称'/>
+          <a-input placeholder='显示名称' v-decorator="[
+              'displayName',
+             {initialValue:roleData.displayName, rules: [{ required: true, message: '请输入显示名称!'}]}
+            ]"/>
         </a-form-item>
 
 
@@ -39,20 +41,22 @@
           :wrapperCol="wrapperCol"
           label='角色描述:'
           hasFeedback
-          fieldDecoratorId="description"
-          :fieldDecoratorOptions="{initialValue:roleData.description}"
         >
-          <a-input placeholder='角色描述'/>
+          <a-input placeholder='角色描述' v-decorator="[
+              'description',
+             {initialValue:roleData.description}
+            ]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='角色权限:'
-          fieldDecoratorId="permissions"
-          :fieldDecoratorOptions="{initialValue:roleData.permissions}"
         >
-          <a-checkbox-group :options="permissions"/>
+          <a-checkbox-group :options="permissions" v-decorator="[
+              'permissions',
+            {initialValue:roleData.permissions}
+            ]"/>
         </a-form-item>
 
       </a-form>
@@ -66,7 +70,7 @@
     props: ['permissions', 'visible', 'roleData'],
     data() {
       return {
-        form: null,
+        form: this.$form.createForm(this),
         labelCol: {
           xs: {span: 24},
           sm: {span: 5},

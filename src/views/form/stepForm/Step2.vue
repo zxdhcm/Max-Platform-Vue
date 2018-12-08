@@ -49,20 +49,20 @@
 <script>
   export default {
     name: "Step2",
-    data() {
+    data () {
       return {
         loading: false
       }
     },
     methods: {
-      nextStep() {
+      nextStep () {
         let that = this
         that.loading = true
         setTimeout(function () {
           that.$emit('nextStep')
         }, 1500)
       },
-      prevStep() {
+      prevStep () {
         this.$emit('prevStep')
       }
     }

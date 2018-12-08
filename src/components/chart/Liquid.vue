@@ -1,7 +1,13 @@
 <template>
   <div>
-    <v-chart :forceFit="true" :height="height" :width="width" :data="data" :scale="scale" :padding="0">
-      <v-tooltip/>
+    <v-chart
+      :forceFit="true"
+      :height="height"
+      :width="width"
+      :data="data"
+      :scale="scale"
+      :padding="0">
+      <v-tooltip />
       <v-interval
         :shape="['liquid-fill-gauge']"
         position="transfer*value"
@@ -57,5 +63,4 @@
 </script>
 
 <style scoped>
-
 </style>

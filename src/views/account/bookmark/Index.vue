@@ -162,16 +162,17 @@
       @ok="handleBookmarkClassOk"
       :confirmLoading="bookmarkClass.loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.bookmarkClass.form = form}">
+      <a-form :form="bookmarkClass.form">
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='分类名称:'
           hasFeedback
-          fieldDecoratorId="className"
-          :fieldDecoratorOptions="{initialValue:bookmarkClass.formVal.className,rules: [{ required: true, message: '请输入分类名称!'}]}"
         >
-          <a-input placeholder='分类名称'/>
+          <a-input placeholder='分类名称' v-decorator="[
+              'className',
+             {initialValue:bookmarkClass.formVal.className,rules: [{ required: true, message: '请输入分类名称!'}]}
+            ]"/>
         </a-form-item>
       </a-form>
 
@@ -184,16 +185,17 @@
       @ok="handleBookmarkChannelOk"
       :confirmLoading="bookmarkChannel.loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.bookmarkChannel.form = form}">
+      <a-form :form="bookmarkChannel.form">
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='频道名称:'
           hasFeedback
-          fieldDecoratorId="channelName"
-          :fieldDecoratorOptions="{initialValue:bookmarkChannel.formVal.channelName,rules: [{ required: true, message: '请输入频道名称!'}]}"
         >
-          <a-input placeholder='频道名称'/>
+          <a-input placeholder='频道名称' v-decorator="[
+              'channelName',
+             {initialValue:bookmarkChannel.formVal.channelName,rules: [{ required: true, message: '请输入频道名称!'}]}
+            ]"/>
         </a-form-item>
       </a-form>
 
@@ -206,36 +208,39 @@
       @ok="handleBookmarkOk"
       :confirmLoading="bookmark.loading"
     >
-      <a-form :autoFormCreate="(form)=>{this.bookmark.form = form}">
+      <a-form :form="bookmark.form">
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='网址:'
           hasFeedback
-          fieldDecoratorId="url"
-          :fieldDecoratorOptions="{initialValue:bookmark.formVal.url,rules: [{ required: true, message: '请输入网址!'},{ type: 'url', message: '请输入正确的网址!'}]}"
         >
-          <a-input placeholder='网址'/>
+          <a-input placeholder='网址' v-decorator="[
+              'url',
+             {initialValue:bookmark.formVal.url,rules: [{ required: true, message: '请输入网址!'},{ type: 'url', message: '请输入正确的网址!'}]}
+            ]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='书签名称:'
           hasFeedback
-          fieldDecoratorId="title"
-          :fieldDecoratorOptions="{initialValue:bookmark.formVal.title}"
         >
-          <a-input placeholder='书签名称'/>
+          <a-input placeholder='书签名称' v-decorator="[
+              'title',
+             {initialValue:bookmark.formVal.title}
+            ]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label='备注:'
           hasFeedback
-          fieldDecoratorId="remarks"
-          :fieldDecoratorOptions="{initialValue:bookmark.formVal.remarks}"
         >
-          <a-input placeholder='备注'/>
+          <a-input placeholder='备注' v-decorator="[
+              'remarks',
+             {initialValue:bookmark.formVal.remarks}
+            ]"/>
         </a-form-item>
       </a-form>
 
@@ -287,7 +292,7 @@
         bookmarkChannels: [],
         bookmarks: [],
         bookmarkClass: {
-          form: null,
+          form: this.$form.createForm(this),
           formVal: {
             className: '',
             id: 0
@@ -300,7 +305,7 @@
           activeKey: "0"
         },
         bookmarkChannel: {
-          form: null,
+          form: this.$form.createForm(this),
           formVal: {
             channelName: '',
             bookmarkClassId: 0,
@@ -314,7 +319,7 @@
           activeKey: "0"
         },
         bookmark: {
-          form: null,
+          form: this.$form.createForm(this),
           formVal: {
             title: '',
             url: '',

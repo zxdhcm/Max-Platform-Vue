@@ -3,39 +3,43 @@
     <a-row :gutter="16">
       <a-col :md="24" :lg="16">
 
-        <a-form layout="vertical" :autoFormCreate="(form)=>{this.form = form}">
+        <a-form layout="vertical" :form="form">
           <a-form-item
             label='用户名:'
             hasFeedback
-            fieldDecoratorId="userName"
-            :fieldDecoratorOptions="{initialValue:user.userName, rules: [{ required: true, message: '请输入用户名!'}]}"
           >
-            <a-input placeholder='用户名'/>
+            <a-input placeholder='用户名' v-decorator="[
+              'userName',
+             {initialValue:user.userName, rules: [{ required: true, message: '请输入用户名!'}]}
+            ]"/>
           </a-form-item>
           <a-form-item
             label='名字:'
             hasFeedback
-            fieldDecoratorId="name"
-            :fieldDecoratorOptions="{initialValue:user.name, rules: [{ required: true, message: '请输入名字!'}]}"
           >
-            <a-input placeholder="给自己起个名字"/>
+            <a-input placeholder="给自己起个名字" v-decorator="[
+              'name',
+             {initialValue:user.name, rules: [{ required: true, message: '请输入名字!'}]}
+            ]"/>
           </a-form-item>
           <a-form-item
             label='姓氏:'
             hasFeedback
-            fieldDecoratorId="surname"
-            :fieldDecoratorOptions="{initialValue:user.surname}"
           >
-            <a-input placeholder='姓氏'/>
+            <a-input placeholder='姓氏' v-decorator="[
+              'surname',
+             {initialValue:user.surname}
+            ]"/>
           </a-form-item>
 
           <a-form-item
             label='邮箱:'
             hasFeedback
-            fieldDecoratorId="emailAddress"
-            :fieldDecoratorOptions="{initialValue:user.emailAddress, rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}]}"
           >
-            <a-input placeholder="exp@admin.com"/>
+            <a-input placeholder="exp@admin.com" v-decorator="[
+              'emailAddress',
+             {initialValue:user.emailAddress, rules: [{type: 'email', message: '请输入正确的邮箱!',}, {required: true, message: '请输入邮箱!'}]}
+            ]"/>
           </a-form-item>
 
           <a-form-item>
@@ -86,7 +90,7 @@
           avator: '',
           id: 0
         },
-        form: null,
+        form: this.$form.createForm(this),
         option: {
           img: '/avatar2.jpg',
           info: true,

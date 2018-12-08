@@ -50,12 +50,12 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:21021',
+        target: 'http://193.112.111.13:8081',
         ws: false,
         changeOrigin: true
       },
       '/AbpUserConfiguration': {
-        target:'http://localhost:21021',
+        target:'http://193.112.111.13:8081',
         ws: false,
         changeOrigin: true
       }

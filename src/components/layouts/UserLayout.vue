@@ -17,9 +17,9 @@
 
       <div class="footer">
         <div class="links">
-          <a href="_self">帮助</a>
-          <a href="_self">隐私</a>
-          <a href="_self">条款</a>
+          <a>帮助</a>
+          <a>隐私</a>
+          <a>条款</a>
         </div>
         <div class="copyright">
           Copyright &copy; {{year}} Max Platform lnc.ALL Rights Reserved
